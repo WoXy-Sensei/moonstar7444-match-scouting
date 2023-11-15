@@ -1,8 +1,7 @@
 import axios from 'axios'
 
 const api = axios.create({
-    timeout: 1000,
-    headers: {'accept': 'application/json'}
-  });
+  headers: {  "Content-Type": "multipart/form-data", }
+})
 
-export default api;
+export default api

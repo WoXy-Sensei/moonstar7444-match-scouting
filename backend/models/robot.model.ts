@@ -82,4 +82,4 @@ const RobotSchema = new Schema({
 
 const Robot = model("robot", RobotSchema);
 
-export default { Robot };
+export default Robot;

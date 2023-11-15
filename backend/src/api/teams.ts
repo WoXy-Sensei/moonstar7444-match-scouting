@@ -1,17 +1,22 @@
-import express from 'express';
-import Robot from "../../models/robot.model";
+import express from "express";
+import { connectToDatabase } from "../mongodb";
+
+
 const router = express.Router();
 
-
-router.get('/', (req, res) => {
-  res.json({"hello":"moonstar7444"});
+router.get("/", async (req, res) => {
+  const { database }: any = await connectToDatabase();
+  const test = await database.collection("teams").find({}).toArray();
+  res.json(test);
 });
 
 router.post("/", async (req, res) => {
-  const newRobot = new Robot.Robot(req.body);
-  const insertedRobot = await newRobot.save();
-  return res.status(201).json(insertedRobot);
+    
+  const data = req.body;
+  
+  const { database }: any = await connectToDatabase();
+  const team = database.collection("teams").insertOne(req.body);
+  res.json(team);
 });
-
 
 export default router;

@@ -14,11 +14,13 @@
   },
   "dependencies": {
     "@vueform/vueform": "^1.5.7",
+    "@vueuse/core": "^10.6.1",
     "axios": "^1.6.1",
     "moongose": "^1.0.0",
     "pinia": "^2.1.7",
     "vue": "^3.3.4",
-    "vue-router": "^4.2.5"
+    "vue-router": "^4.2.5",
+    "vue3-toastify": "^0.1.14"
   },
   "devDependencies": {
     "@rushstack/eslint-patch": "^1.3.3",

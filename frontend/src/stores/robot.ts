@@ -1,8 +1,20 @@
-import { reactive } from 'vue'
 import { defineStore } from 'pinia'
 
-export const useRobotStore = defineStore('robot', () => {
-  const data = reactive({ teamNumber: '', teamName: '', motorType: '',driveType:'' ,robotMeasurement:{front : '', back : '', left : '', right : ''}})
+export const useRobotStore = defineStore('robot', {
 
-  return { data }
+  state: () => ({
+    teamNumber: '',
+    teamName: '',
+    motorType: '',
+    driveType: '',
+    robotMeasurement: { front: null, back: null, left: null, right: null },
+    teamRating: "50",
+    teamCountry: '',
+    rookieYear: '',
+    competition: null,
+    robotWeight: null,
+    robotHeight: null,
+    description: '',
+    image: '' as any,
+  })
 })
