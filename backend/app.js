@@ -15,11 +15,7 @@ app.get("/", (req, res) => {
   res.send("Pit Scouting Server");
 });
 
-app.get("/team", (req, res) => {
-  res.send("save team");
-});
-
-app.post("/team", async (req, res) => {
+app.post("api/team", async (req, res) => {
   const newRobot = Robot.Robot(req.body);
   const insertedRobot = await newRobot.save();
   return res.status(201).json(insertedRobot);
