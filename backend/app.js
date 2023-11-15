@@ -11,11 +11,11 @@ app.use(bodyParser.json())
   
 
 
-app.get("/", (req, res) => {
+app.get("/api", (req, res) => {
   res.send("Pit Scouting Server");
 });
 
-app.post("api/team", async (req, res) => {
+app.post("/api/team", async (req, res) => {
   const newRobot = Robot.Robot(req.body);
   const insertedRobot = await newRobot.save();
   return res.status(201).json(insertedRobot);
