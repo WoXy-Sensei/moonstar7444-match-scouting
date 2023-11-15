@@ -19,15 +19,9 @@ const getTeam = async (teamNumber: Number) => {
 
 const saveTeam = async () => {
   try {
-    console.log(data);
-    
     const team = await api.saveTeam(data);
-    console.log(team);
-
     return team.data;
   } catch (error) {
-    console.log(error);
-    
     return "Team not found";
   }
 };
