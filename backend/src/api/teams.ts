@@ -1,8 +1,8 @@
 import express from "express";
 import { connectToDatabase } from "../mongodb";
 
-
 const router = express.Router();
+
 
 router.get("/", async (req, res) => {
   const { database }: any = await connectToDatabase();
@@ -11,12 +11,13 @@ router.get("/", async (req, res) => {
 });
 
 router.post("/", async (req, res) => {
-    
-  const data = req.body;
+  console.log(req.body);
+  console.log(req.files);
   
-  const { database }: any = await connectToDatabase();
-  const team = database.collection("teams").insertOne(req.body);
-  res.json(team);
+  let image = (req.files as any).image;
+  
+    
+  res.json({message : "hello"});
 });
 
 export default router;

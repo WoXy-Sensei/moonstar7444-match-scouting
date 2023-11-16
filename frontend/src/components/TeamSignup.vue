@@ -30,18 +30,17 @@ const setTeam = async () => {
       rookieYear: data.rookieYear,
       robotWeight: data.robotWeight,
       robotHeight: data.robotHeight,
-      robotMeasurement: {
-        front: data.robotMeasurement.front,
-        back: data.robotMeasurement.back,
-        left: data.robotMeasurement.left,
-        right: data.robotMeasurement.right,
-      },
+      front: data.robotMeasurement.front,
+      back: data.robotMeasurement.back,
+      left: data.robotMeasurement.left,
+      right: data.robotMeasurement.right,
       motorType: data.motorType,
       driveType: data.driveType,
       description: data.description,
       teamRating: data.teamRating,
       competition: data.competition,
     };
+
     const team = await api.setTeam(body);
     toast.success("Completed Successfully", {
       autoClose: 5000,
@@ -299,6 +298,7 @@ watch(
     <input
       type="file"
       class="file-input file-input-bordered w-full max-w-xs"
+      name="image"
       required
       @change="handleImage"
     />

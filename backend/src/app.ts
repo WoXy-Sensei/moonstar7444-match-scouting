@@ -6,6 +6,7 @@ import * as middlewares from "./middlewares";
 import api from "./api";
 import MessageResponse from "./interfaces/MessageResponse";
 import fileUpload from "express-fileupload";
+import bodyParser from "body-parser";
 
 const app = express();
 
@@ -20,6 +21,7 @@ app.use(fileUpload());
 app.use(morgan("dev"));
 app.use(helmet());
 app.use(express.json({ limit: "50mb" }));
+app.use(bodyParser.urlencoded({extended: true}));
 
 app.get<{}, MessageResponse>("/", (req, res) => {
   res.json({
