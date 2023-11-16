@@ -11,15 +11,6 @@ const useRobot = useRobotStore();
 const data = useRobot;
 const refForm = ref();
 
-const getTeam = async (teamNumber: string) => {
-  try {
-    const team = await api.getTeam(teamNumber);
-    return team.data;
-  } catch (error) {
-    return false;
-  }
-};
-
 const setTeam = async () => {
   try {
     const body = {
@@ -54,7 +45,7 @@ const setTeam = async () => {
     console.log(error);
 
     toast.error("ERROR", {
-      autoClose: 5000,
+      autoClose: 3000,
       theme: "dark",
     });
   }
@@ -68,17 +59,16 @@ watch(
   () => data.teamNumber,
   async (newteamNumber: string) => {
     if (newteamNumber.length >= 3) {
-      const team = await getTeam(newteamNumber);
-      console.log(team);
-      if (!team) {
+      try {
+        const team = await api.getTeam(teamNumber);
+        data.teamName = team.name;
+        data.teamCountry = team.country;
+        data.rookieYear = team.rookie_year;
+      } catch (error) {
         data.teamName = "Team not found";
         data.teamCountry = "Team not found";
         data.rookieYear = "Team not found";
-        return;
       }
-      data.teamName = team.name;
-      data.teamCountry = team.country;
-      data.rookieYear = team.rookie_year;
     }
   }
 );
