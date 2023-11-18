@@ -2,7 +2,6 @@
 import { useRobotStore } from "@/stores/robot";
 
 const useRobot = useRobotStore();
-const data = useRobot;
 </script>
 
 <template>
@@ -13,7 +12,7 @@ const data = useRobot;
       placeholder="F"
       required
       class="input input-bordered w-20 border-red-500 m-5 text-center"
-      v-model="data.robotMeasurement.front"
+      v-model="useRobot.robotMeasurement.front"
     />
     <div class="robot-row">
       <input
@@ -22,7 +21,7 @@ const data = useRobot;
         placeholder="L"
         required
         class="input input-bordered w-20 border-red-500 text-center"
-        v-model="data.robotMeasurement.left"
+        v-model="useRobot.robotMeasurement.left"
       />
       <svg width="100" height="100">
         <rect
@@ -37,7 +36,7 @@ const data = useRobot;
         required
         placeholder="R"
         class="input input-bordered w-20 border-red-500 text-center"
-        v-model="data.robotMeasurement.right"
+        v-model="useRobot.robotMeasurement.right"
       />
     </div>
     <input
@@ -46,7 +45,7 @@ const data = useRobot;
       required
       placeholder="B"
       class="input input-bordered w-20 border-red-500 m-5 text-center"
-      v-model="data.robotMeasurement.back"
+      v-model="useRobot.robotMeasurement.back"
     />
   </div>
 </template>

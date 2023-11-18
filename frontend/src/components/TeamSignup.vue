@@ -1,42 +1,51 @@
 <script setup lang="ts">
-import { watch } from "vue";
+import { watch, ref } from "vue";
 import { useRobotStore } from "@/stores/robot";
 import api from "@/api/teams";
+import RobotField from "@/components/RobotField.vue";
 import { toast } from "vue3-toastify";
 import "vue3-toastify/dist/index.css";
-import RobotField from "@/components/RobotField.vue";
-import { ref } from "vue";
 
 const useRobot = useRobotStore();
-const data = useRobot;
 const refForm = ref();
 
 const setTeam = async () => {
   try {
     const body = {
-      image: data.image,
-      teamNumber: data.teamNumber,
-      teamName: data.teamName,
-      teamCountry: data.teamCountry,
-      rookieYear: data.rookieYear,
-      robotWeight: data.robotWeight,
-      robotHeight: data.robotHeight,
-      front: data.robotMeasurement.front,
-      back: data.robotMeasurement.back,
-      left: data.robotMeasurement.left,
-      right: data.robotMeasurement.right,
-      motorType: data.motorType,
-      driveType: data.driveType,
-      description: data.description,
-      teamRating: data.teamRating,
-      competition: data.competition,
+      image: useRobot.image,
+      teamNumber: useRobot.teamNumber,
+      teamName: useRobot.teamName,
+      teamCountry: useRobot.teamCountry,
+      rookieYear: useRobot.rookieYear,
+      robotWeight: useRobot.robotWeight,
+      robotHeight: useRobot.robotHeight,
+      front: useRobot.robotMeasurement.front,
+      back: useRobot.robotMeasurement.back,
+      left: useRobot.robotMeasurement.left,
+      right: useRobot.robotMeasurement.right,
+      motorType: useRobot.motorType,
+      driveType: useRobot.driveType,
+      description: useRobot.description,
+      teamRating: useRobot.teamRating,
+      competition: useRobot.competition,
     };
 
     const team = await api.setTeam(body);
+    console.log(team);
+
+    if (team.status === 400) {
+      toast.error("The team is already registered or an error has occurred", {
+        autoClose: 3000,
+        theme: "dark",
+      });
+      return;
+    }
+
     toast.success("Completed Successfully", {
       autoClose: 5000,
       theme: "dark",
     });
+
     useRobot.$reset();
     refForm.value.reset();
 
@@ -44,7 +53,7 @@ const setTeam = async () => {
   } catch (error) {
     console.log(error);
 
-    toast.error("ERROR", {
+    toast.error("The team is already registered or an error has occurred", {
       autoClose: 3000,
       theme: "dark",
     });
@@ -52,22 +61,22 @@ const setTeam = async () => {
 };
 
 const handleImage = async (e: any) => {
-  data.image = e.target.files[0];
+  useRobot.image = e.target.files[0];
 };
 
 watch(
-  () => data.teamNumber,
+  () => useRobot.teamNumber,
   async (newteamNumber: string) => {
     if (newteamNumber.length >= 3) {
       try {
-        const team = await api.getTeam(teamNumber);
-        data.teamName = team.name;
-        data.teamCountry = team.country;
-        data.rookieYear = team.rookie_year;
+        const team = await api.getTeam(newteamNumber);
+        useRobot.teamName = team.data.name;
+        useRobot.teamCountry = team.data.country;
+        useRobot.rookieYear = team.data.rookie_year;
       } catch (error) {
-        data.teamName = "Team not found";
-        data.teamCountry = "Team not found";
-        data.rookieYear = "Team not found";
+        useRobot.teamName = "Team not found";
+        useRobot.teamCountry = "Team not found";
+        useRobot.rookieYear = "Team not found";
       }
     }
   }
@@ -87,10 +96,9 @@ watch(
               type="radio"
               name="radio-10"
               class="radio checked:bg-red-500 ml-3"
-              checked
               value="0"
               required
-              v-model="data.competition"
+              v-model="useRobot.competition"
             />
             <span class="label-text m-3">Istanbul Regional</span>
           </label>
@@ -100,7 +108,7 @@ watch(
               name="radio-10"
               class="radio checked:bg-red-500 ml-3"
               value="1"
-              v-model="data.competition"
+              v-model="useRobot.competition"
               required
             />
             <span class="label-text m-3">Haliç Regional</span>
@@ -113,7 +121,7 @@ watch(
               name="radio-10"
               class="radio checked:bg-red-500 ml-3"
               value="2"
-              v-model="data.competition"
+              v-model="useRobot.competition"
               required
             />
             <span class="label-text m-3">Aerospace Valley Regional</span>
@@ -124,7 +132,7 @@ watch(
               name="radio-10"
               class="radio checked:bg-red-500 ml-3"
               value="3"
-              v-model="data.competition"
+              v-model="useRobot.competition"
               required
             />
             <span class="label-text m-3">Championship 2024</span>
@@ -142,7 +150,7 @@ watch(
         placeholder="Number"
         class="input input-bordered w-full border-red-500"
         maxlength="4"
-        v-model="data.teamNumber"
+        v-model="useRobot.teamNumber"
         required
       />
       <label class="label">
@@ -153,7 +161,7 @@ watch(
         placeholder="Team Name"
         class="input input-bordered w-full border-red-500"
         disabled
-        v-model="data.teamName"
+        v-model="useRobot.teamName"
       />
       <div class="flex gap-5">
         <div>
@@ -165,7 +173,7 @@ watch(
             placeholder="Team Country"
             class="input input-bordered w-full border-red-500"
             disabled
-            v-model="data.teamCountry"
+            v-model="useRobot.teamCountry"
           />
         </div>
         <div>
@@ -177,7 +185,7 @@ watch(
             placeholder="Rookie Year"
             class="input input-bordered w-full border-red-500"
             disabled
-            v-model="data.rookieYear"
+            v-model="useRobot.rookieYear"
           />
         </div>
       </div>
@@ -191,7 +199,7 @@ watch(
         step="any"
         placeholder="Robot Weight ?"
         class="input input-bordered w-full border-red-500"
-        v-model="data.robotWeight"
+        v-model="useRobot.robotWeight"
         required
       />
       <label class="label">
@@ -204,7 +212,7 @@ watch(
         step="any"
         placeholder="Robot Height ?"
         class="input input-bordered w-full border-red-500"
-        v-model="data.robotHeight"
+        v-model="useRobot.robotHeight"
         required
       />
 
@@ -217,26 +225,11 @@ watch(
       <RobotField />
 
       <label class="label">
-        <span class="label-text">Motor Type ?</span>
-      </label>
-      <select
-        class="select select-bordered border-red-500"
-        v-model="data.motorType"
-        required
-      >
-        <option disabled selected value="">Pick one</option>
-        <option value="neo">NEO</option>
-        <option value="falcon">Falcon</option>
-        <option value="kraken">Kraken</option>
-        <option value="cim">CIM</option>
-      </select>
-
-      <label class="label">
         <span class="label-text">Drive Type ?</span>
       </label>
       <select
         class="select select-bordered border-red-500"
-        v-model="data.driveType"
+        v-model="useRobot.driveType"
         required
       >
         <option disabled selected value="">Pick one</option>
@@ -247,13 +240,29 @@ watch(
         <option value="mecanum">Mecanum</option>
         <option value="tankdrive">Tank Drive (Andymark)</option>
       </select>
+
+      <label class="label">
+        <span class="label-text">Drive Motor Type ?</span>
+      </label>
+      <select
+        class="select select-bordered border-red-500"
+        v-model="useRobot.motorType"
+        required
+      >
+        <option disabled selected value="">Pick one</option>
+        <option value="neo">NEO</option>
+        <option value="falcon">Falcon</option>
+        <option value="kraken">Kraken</option>
+        <option value="cim">CIM</option>
+      </select>
+
       <label class="label">
         <span class="label-text">Description</span>
       </label>
       <textarea
         class="textarea textarea-bordered border-red-500"
         placeholder="Description"
-        v-model="data.description"
+        v-model="useRobot.description"
       ></textarea>
       <label class="label">
         <span class="label-text">Rating ?</span>
@@ -265,7 +274,7 @@ watch(
         class="range"
         step="10"
         style="--range-shdw: rgb(239, 68, 68)"
-        v-model="data.teamRating"
+        v-model="useRobot.teamRating"
         required
       />
       <div class="w-full flex justify-between text-xs px-2">
