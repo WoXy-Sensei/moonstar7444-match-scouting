@@ -1,12 +1,25 @@
 import express from "express";
 import { connectToDatabase } from "../mongodb";
+import { put } from "@vercel/blob";
+import dotenv from "dotenv";
+dotenv.config();
 
 const router = express.Router();
 
 router.get("/", async (req, res) => {
   const { database }: any = await connectToDatabase();
-  const test = await database.collection("robots").find({}).toArray();
-  res.json(test);
+  const competitionId = req.query.competitionId;
+  if (competitionId) {
+    const robots = await database
+      .collection("robots")
+      .find({ teamCompetition: competitionId })
+      .toArray();
+    res.json(robots);
+    return;
+  }
+  const robots = await database.collection("robots").find({}).toArray();
+  res.json(robots);
+  return;
 });
 
 router.post("/", async (req, res) => {
@@ -15,6 +28,7 @@ router.post("/", async (req, res) => {
   const findTeam = await database.collection("robots").findOne({
     teamName: req.body.teamName,
     teamNumber: req.body.teamNumber,
+    teamCompetition: req.body.competition,
   });
 
   if (findTeam) {
@@ -22,19 +36,16 @@ router.post("/", async (req, res) => {
   }
 
   let image = (req.files as any).image;
-  image.mv(
-    "./public/uploads/" +
-      `${req.body.teamName.replace(" ", "-").toLowerCase()}-${
-        req.body.teamNumber
-      }.png`
-  );
+
+  const { url } = await put("uploads/test.png", image.data, {
+    access: "public",
+    token: process.env.BLOB_READ_WRITE_TOKEN,
+  });
 
   const insert = database.collection("robots").insertOne({
     teamName: req.body.teamName,
     teamNumber: req.body.teamNumber,
-    image: `uploads/${req.body.teamName.replace(" ", "-").toLowerCase()}-${
-      req.body.teamNumber
-    }.png`,
+    image: url,
     teamCountry: req.body.teamCountry,
     teamCompetition: req.body.competition,
     teamDescription: req.body.description,

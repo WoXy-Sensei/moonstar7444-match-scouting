@@ -1,19 +1,27 @@
 <script setup lang="ts">
 import api from "@/api/teams";
-import { reactive, onMounted } from "vue";
+import { ref, watch, onMounted } from "vue";
+import { useRoute } from "vue-router";
+import TeamCol from "@/components/TeamCol.vue";
 
-const teams = reactive({
-  data: [],
-});
+const route = useRoute();
 
-const getTeams = async () => {
+const teams = ref([]) as any;
+const getTeams = async (competitionId: string | string[] | undefined | null = null) => {
   try {
-    const getTeamsData = await api.getTeams();
-    teams.data = getTeamsData.data;
+    const getTeamsData = await api.getTeams(competitionId);
+    teams.value = getTeamsData.data;
   } catch (error) {
     console.log(error);
   }
 };
+
+watch(
+  () => route.params,
+  (toParams) => {
+    getTeams(toParams.competitionId);
+  }
+);
 
 onMounted(() => {
   getTeams();
@@ -21,28 +29,68 @@ onMounted(() => {
 </script>
 
 <template>
-  <div class="flex flex-col w-full place-items-center p-5" style="height: 100vh">
-    <article class="prose flex justfiy-center flex-col items-center mb-5">
-      <h1 class="">View Teams</h1>
-    </article>
+  <div class="page">
+    <div role="tablist" class="tabs tabs-bordered">
+      <router-link to="/teams/0" custom v-slot="{ href, navigate, isActive }">
+        <a
+          :active="isActive"
+          :href="href"
+          :class="{ 'tab-active': isActive }"
+          @click="navigate"
+          role="tab"
+          class="tab"
+          >Istanbul Regional</a
+        >
+      </router-link>
+      <router-link to="/teams/1" custom v-slot="{ href, navigate, isActive }">
+        <a
+          :active="isActive"
+          :href="href"
+          :class="{ 'tab-active': isActive }"
+          @click="navigate"
+          role="tab"
+          class="tab"
+          >Haliç Regional</a
+        >
+      </router-link>
+    </div>
+    <div role="tablist" class="tabs tabs-bordered">
+      <router-link to="/teams/2" custom v-slot="{ href, navigate, isActive }">
+        <a
+          :active="isActive"
+          :href="href"
+          :class="{ 'tab-active': isActive }"
+          @click="navigate"
+          role="tab"
+          class="tab"
+          >Aerospace Valley Regional</a
+        >
+      </router-link>
+      <router-link to="/teams/3" custom v-slot="{ href, navigate, isActive }">
+        <a
+          :active="isActive"
+          :href="href"
+          :class="{ 'tab-active': isActive }"
+          @click="navigate"
+          role="tab"
+          class="tab"
+          >Championship 2024</a
+        >
+      </router-link>
+    </div>
 
-    <div v-for="(team, index) in teams.data" :key="index">
-      <div class="collapse collapse-arrow bg-base-200 mt-5 border-2 border-red-500">
-        <input type="radio" name="my-accordion-2" checked="checked" />
-        <div class="collapse-title text-xl font-medium">
-          {{ team.teamName }} #{{ team.teamNumber }}
-        </div>
-        <div class="collapse-content">
-          <p>{{ team }}</p>
-          <div
-            class="radial-progress color-red-500"
-            :style="{ '--value': team.teamRating }"
-            role="progressbar"
-          >
-            {{ team.teamRating }}%
-          </div>
-        </div>
+    <div class="flex flex-col w-full place-items-center p-5" style="height: 100%">
+      <article class="prose flex justfiy-center flex-col items-center mb-5">
+        <h1 class="">View Teams</h1>
+      </article>
+      <div v-for="(team, index) in teams" :key="index">
+        <TeamCol :team="team" />
       </div>
     </div>
   </div>
 </template>
+<style lang="scss">
+.tab-active {
+  border-color: red !important;
+}
+</style>

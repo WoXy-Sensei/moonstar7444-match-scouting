@@ -6,11 +6,10 @@ export default {
     return api.get(`https://api.statbotics.io/v2/team/${teamNumber}`)
   },
   setTeam(body: any) {    
-    console.log(body);
-    
-    return api.post(`http://localhost:5000/api/v1/teams`, { ...body })
+    return api.post(`${import.meta.env.VITE_API_URL}/teams`, { ...body })
   },
-  getTeams() {
-    return api.get(`http://localhost:5000/api/v1/teams`)
+  getTeams(competitionId: string | string[] | undefined | null) {
+    if(competitionId === null) return api.get(`${import.meta.env.VITE_API_URL}/teams`)
+    return api.get(`${import.meta.env.VITE_API_URL}/teams?competitionId=${competitionId}`)
   }
 }

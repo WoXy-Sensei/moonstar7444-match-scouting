@@ -14,7 +14,5 @@
         <div class="swap-on">❤</div>
       </label>
     </article>
-    <router-link to="/team" class="btn btn-block bg-red-500 mt-5">Save Team</router-link>
-    <router-link to="/team" class="btn btn-block bg-red-500 mt-5">View Teams</router-link>
   </div>
 </template>

@@ -1,9 +1,9 @@
 <script setup lang="ts"></script>
 
 <template>
-  <div class="btm-nav sticky">
+  <div class="btm-nav ">
     <router-link to="/" custom v-slot="{ href, navigate, isActive }">
-      <NavLink
+      <a
         :active="isActive"
         :href="href"
         @click="navigate"
@@ -23,10 +23,10 @@
             d="M12 5.432l8.159 8.159c.03.03.06.058.091.086v6.198c0 1.035-.84 1.875-1.875 1.875H15a.75.75 0 01-.75-.75v-4.5a.75.75 0 00-.75-.75h-3a.75.75 0 00-.75.75V21a.75.75 0 01-.75.75H5.625a1.875 1.875 0 01-1.875-1.875v-6.198a2.29 2.29 0 00.091-.086L12 5.43z"
           />
         </svg>
-      </NavLink>
+      </a>
     </router-link>
     <router-link to="/team" custom v-slot="{ href, navigate, isActive }">
-      <NavLink
+      <a
         :active="isActive"
         :href="href"
         @click="navigate"
@@ -47,10 +47,10 @@
             d="M12 4.5v15m7.5-7.5h-15"
           />
         </svg>
-      </NavLink>
+      </a>
     </router-link>
     <router-link to="/teams" custom v-slot="{ href, navigate, isActive }">
-      <NavLink
+      <a
         :active="isActive"
         :href="href"
         @click="navigate"
@@ -70,7 +70,7 @@
             clip-rule="evenodd"
           />
         </svg>
-      </NavLink>
+      </a>
     </router-link>
   </div>
 </template>
