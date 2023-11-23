@@ -10,6 +10,7 @@ const teams = ref([]) as any;
 const getTeams = async (competitionId: string | string[] | undefined | null = null) => {
   try {
     const getTeamsData = await api.getTeams(competitionId);
+  
     teams.value = getTeamsData.data;
   } catch (error) {
     console.log(error);
@@ -83,9 +84,9 @@ onMounted(() => {
       <article class="prose flex justfiy-center flex-col items-center mb-5">
         <h1 class="">View Teams</h1>
       </article>
-      <div v-for="(team, index) in teams" :key="index">
-        <TeamCol :team="team" />
-      </div>
+      <TeamCol v-for="(team) in teams" :key="team._id" :team="team">
+      
+      </TeamCol>
     </div>
   </div>
 </template>

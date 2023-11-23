@@ -6,7 +6,7 @@ const team = prop.team
 </script>
 
 <template>
-  <div class="collapse collapse-arrow bg-base-200 mt-5 border-2 border-red-500">
+  <div class="collapse collapse-arrow bg-base-200 mt-5 border-2 border-red-500" style="z-index: 0; width:100%">
     <input type="checkbox" :name="team.teamNumber" />
     <div class="collapse-title text-xl font-medium">
       {{ team.teamName }} #{{ team.teamNumber }}
@@ -158,7 +158,7 @@ const team = prop.team
         </div>
       </div>
 
-      <img :src="team.image" alt="" />
+      <img :src="team.image" alt="" style="width: 100%;"/>
     </div>
   </div>
 </template>

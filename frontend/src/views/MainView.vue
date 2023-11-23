@@ -11,7 +11,7 @@
         <div class="swap-off">
           <img src="../assets/img/logo-white.svg" alt="" class="m-0" />
         </div>
-        <div class="swap-on">❤</div>
+        <div class="swap-on">🏳️‍🌈</div>
       </label>
     </article>
   </div>
