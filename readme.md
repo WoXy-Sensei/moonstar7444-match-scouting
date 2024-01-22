@@ -8,6 +8,11 @@ This application is a Pit Scouting tool for collecting and managing data during 
 - View and analyze scouting data for strategic decision-making.
 - Mobile-friendly design for on-the-go scouting.
 
+## Screenshots
+
+![image1](https://i.hizliresim.com/bdb0tva.png)
+![image2](https://i.hizliresim.com/h95h83r.png)
+
 ## Technologies Used
 
 - Frontend: Vue.js
