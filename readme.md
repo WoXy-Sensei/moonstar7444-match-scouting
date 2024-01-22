@@ -25,25 +25,27 @@ Before running the application, make sure you have the following installed:
 
 1. Clone this repository to your local machine:
 
-   ```bash
+```bash
    git clone https://github.com/WoXy-Sensei/moonstar7444-pit-scouting
-  ```
+```
 
 2. Navigate to the project directory:
 
-    ```bash
+```bash
     cd pit-scouting-app
-    ```
+```
 
 3. Install dependencies for both frontend and backend:
 
-    ```
+```bash
     cd frontend
     npm install
+```
 
+```bash
     cd ../backend
     npm install
-    ```
+```
 
 ## Contributing
 
