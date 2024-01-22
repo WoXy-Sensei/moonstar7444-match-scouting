@@ -21,11 +21,10 @@ app.use(fileUpload());
 app.use(morgan("dev"));
 app.use(helmet());
 app.use(express.json({ limit: "50mb" }));
-app.use(bodyParser.urlencoded({extended: true}));
 
 app.get<{}, MessageResponse>("/", (req, res) => {
   res.json({
-    message: "hello",
+    message: "hello moonstar7444 pit scouting api",
   });
 });
 
