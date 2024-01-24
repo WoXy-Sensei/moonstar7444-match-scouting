@@ -1,0 +1,13 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+.label{
+    margin-top: 15px;
+}
+
+.page{
+    padding-bottom: 60px;
+    height: 100%;
+}

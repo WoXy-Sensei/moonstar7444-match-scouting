@@ -1,0 +1,14 @@
+{
+  "extends": "@vue/tsconfig/tsconfig.dom.json",
+  "include": ["env.d.ts", "src/**/*", "src/**/*.vue","./*", "src/utils/*.ts"],
+  "exclude": ["src/**/__tests__/*"],
+  "compilerOptions": {
+    "moduleResolution": "Node",
+    "composite": true,
+    "baseUrl": ".",
+    "module": "es2022",
+    "paths": {
+      "@/*": ["./src/*"]
+    }
+  }
+}
