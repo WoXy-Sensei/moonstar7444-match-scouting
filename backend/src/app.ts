@@ -1,12 +1,10 @@
 import express from "express";
 import morgan from "morgan";
 import helmet from "helmet";
-import cors from "cors";
 import * as middlewares from "./middlewares";
 import api from "./api";
 import MessageResponse from "./interfaces/MessageResponse";
 import fileUpload from "express-fileupload";
-import bodyParser from "body-parser";
 
 const app = express();
 
@@ -24,7 +22,7 @@ app.use(express.json({ limit: "50mb" }));
 
 app.get<{}, MessageResponse>("/", (req, res) => {
   res.json({
-    message: "hello moonstar7444 pit scouting api",
+    message: "hello moonstar7444 match scouting api",
   });
 });
 
