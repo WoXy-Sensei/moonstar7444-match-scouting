@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import api from "@/api/teams";
-import { onMounted, ref, watch } from "vue";
+import { ref, watch } from "vue";
 import _ from "lodash";
 import {getByArrayBoolean,getByArrayNumber , calcAvarage} from "@/utils/functions"
 

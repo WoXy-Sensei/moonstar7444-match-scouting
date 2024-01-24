@@ -1,73 +1,67 @@
-# FRC Scouting Application
+# Match Scouting App
 
-This project is a scouting application for FIRST Robotics Competition (FRC) matches. The application allows teams to assess other teams and track match statistics.
+This project is a scouting application developed to track the performance of a team in FRC (FIRST Robotics Competition) matches.
 
-## Getting Started
 
-To start the project, follow the steps below.
+## Features
 
-### Backend
+- Collect and store data about matches.
+- View and analyze scouting data for strategic decision-making.
+- Mobile-friendly design for on-the-go scouting.
 
-1. Navigate to the `backend` folder:
+## Screenshots
 
-    ```bash
-    cd backend
-    ```
+![image1](https://i.hizliresim.com/2m6iqhu.png)
+![image2](https://i.hizliresim.com/irflh2l.png)
 
-2. Install the necessary dependencies:
+## Technologies Used
 
-    ```bash
-    npm install
-    ```
+- Frontend: Vue.js
+- Backend: TypeScript, Express
+- Database: MongoDB
 
-3. Compile the TypeScript code:
+## Prerequisites
 
-    ```bash
-    npm run build
-    ```
+Before running the application, make sure you have the following installed:
 
-4. Start the server:
+- Node.js
+- npm (Node Package Manager)
 
-    ```bash
-    npm start
-    ```
+## Installation
 
-    The server will run by default at `http://localhost:3000`.
+1. Clone this repository to your local machine:
 
-### Frontend
+```bash
+   git clone https://github.com/WoXy-Sensei/moonstar7444-match-scouting
+```
 
-1. Navigate to the `frontend` folder:
+2. Navigate to the project directory:
 
-    ```bash
+```bash
+    cd pit-scouting-app
+```
+
+3. Install dependencies for both frontend and backend:
+
+```bash
     cd frontend
-    ```
-
-2. Install the necessary dependencies:
-
-    ```bash
     npm install
-    ```
+```
 
-3. Start the Vue.js application:
+```bash
+    cd ../backend
+    npm install
+```
 
-    ```bash
-    npm run serve
-    ```
+## Contributing
 
-    The application will run by default at `http://localhost:8080`.
+If you'd like to contribute to this project, please follow these steps:
 
-## Usage
-
-To use the application, open your browser and go to `http://localhost:8080`. Log in and then you can evaluate teams and observe match statistics.
-
-## Contribution
-
-1. Fork this project.
-2. Create a new branch: `git checkout -b feature/new-feature`
-3. Commit your changes: `git commit -m 'Added a new feature'`
-4. Push your branch: `git push origin feature/new-feature`
-5. Create a pull request.
+Open an issue to discuss proposed changes or new features.
+Fork the repository and create a new branch.
+Make your changes and submit a pull request.
 
 ## License
 
-This project is licensed under the MIT License. See the `LICENSE` file for more information.
+This project is licensed under the MIT License.
+
