@@ -10,7 +10,7 @@ const competition = ref("0");
 const data = ref([]) as any;
 
 const getTeamFromNumber = _.debounce(async (teamNumber: string) => {
-  if (teamNumber.length === 4) {
+  if (3 <= teamNumber.length) {
     const team = await api.getTeamMatch(competition.value,teamNumber);
     data.value = team.data;
   }
