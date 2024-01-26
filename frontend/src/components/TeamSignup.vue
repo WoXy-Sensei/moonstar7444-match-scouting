@@ -10,6 +10,7 @@ const useMatchTeam = useMatchTeamStore();
 const refForm = ref();
 const startPoistionImage = ref();
 const startPositionCircle = ref();
+const loading = ref(false);
 
 
 onMounted(() => {
@@ -51,7 +52,7 @@ const setTeamMatch = async () => {
       trapNote: useMatchTeam.endGame.trapNote,
       comments: useMatchTeam.endGame.comments,
     };
-
+    loading.value = true;
     const team = await api.setTeamMatch(body);
     console.log(team);
 
@@ -67,6 +68,8 @@ const setTeamMatch = async () => {
       autoClose: 5000,
       theme: "dark",
     });
+
+    loading.value = false;
 
     useMatchTeam.$reset();
     refForm.value.reset();
@@ -389,6 +392,26 @@ watch(
 
     <button class="btn btn-block bg-red-500 mt-5" type="submit">Submit</button>
   </form>
+
+  <div class="loadPopup flex flex-col gap-5" v-if="loading">
+    <span class="text-3xl font-bold">Loading...</span>
+    <span class="loading loading-spinner text-error loading-lg" style="height:50px"></span>
+  </div>
 </template>
 
-<style scoped lang="scss"></style>
+<style scoped lang="scss">
+
+.loadPopup {
+  position: fixed;
+  transform: translateY(50%);
+  z-index: 9999;
+  width: 300px;
+  height: 400px;
+  background: rgb(2, 2, 2);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid red;
+}
+
+</style>
