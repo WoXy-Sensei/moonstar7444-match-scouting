@@ -16,7 +16,7 @@ const router = createRouter({
       component: TeamSave
 
     },{
-      path: '/teams/:competitionId',
+      path: '/teams/:teamNumber',
       name: 'teamsid',
       component: TeamView
     },{

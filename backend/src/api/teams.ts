@@ -10,10 +10,19 @@ router.get("/", async (req, res) => {
   const { database }: any = await connectToDatabase();
   const competitionId = req.query.competitionId;
   const teamNumber = req.query.teamNumber;
-  if (competitionId && teamNumber) {
+  const unique = req.query.unique;
+  if (competitionId && teamNumber && !unique) {
     const robots = await database
       .collection("teams")
       .find({ competitionId: competitionId, teamNumber: teamNumber })
+      .toArray();
+    res.json(robots);
+    return;
+  }
+  if (competitionId && unique) {
+    const robots = await database
+      .collection("teams")
+      .find({ competitionId: competitionId, match: 1 })
       .toArray();
     res.json(robots);
     return;
@@ -26,10 +35,13 @@ router.post("/", async (req, res) => {
   const { database }: any = await connectToDatabase();
   let match_count = 1;
 
-  const team = await database.collection("teams").find({
-    competitionId: req.body.competitionId,
-    teamNumber: req.body.teamNumber,
-  }).toArray();
+  const team = await database
+    .collection("teams")
+    .find({
+      competitionId: req.body.competitionId,
+      teamNumber: req.body.teamNumber,
+    })
+    .toArray();
 
   if (team) {
     match_count = team.length;
@@ -37,7 +49,7 @@ router.post("/", async (req, res) => {
   }
 
   console.log(req.body.failedAutonomous);
-  console.log(req.body.competitionId)
+  console.log(req.body.competitionId);
 
   const insert = database.collection("teams").insertOne({
     teamName: req.body.teamName,

@@ -405,7 +405,7 @@ watch(
   position: fixed;
   transform: translateY(50%);
   z-index: 9999;
-  width: 300px;
+  width: 400px;
   height: 400px;
   background: rgb(2, 2, 2);
   display: flex;
